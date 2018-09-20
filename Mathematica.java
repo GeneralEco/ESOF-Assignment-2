@@ -13,11 +13,12 @@ public class Mathematica implements MathSort {
 	 * until it is in place 
 	 * */
 	@Override
-	public void MyMath(int[] iArray) {
-		int n = iArray.length;
+	public void MyMathSort(int[] iArray) {
+		this.PrintArray(iArray);//prints array before
+		int n = iArray.length -1;
 		int cur;
 		int l;
-		for (int i = 1; i < n; i++) {
+		for (int i = 1; i <= n; i++) {
 			l = i-1;
 			cur = iArray[i];		
 			while(l >= 0 && iArray[l] > cur) {
@@ -26,6 +27,7 @@ public class Mathematica implements MathSort {
 			}//nested while loop
 			iArray[l+1] = cur;
 		}//main for loop
+		this.PrintArray(iArray);//prints array after
 	}//MyMath method
 
 }

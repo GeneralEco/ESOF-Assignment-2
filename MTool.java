@@ -4,86 +4,57 @@ package program;
  * September 17,2018
  * ESOF 322 - Assignment 2	
  *
- *Merge Sort Class
+ *Merge Sort Class sourced from http://www.cburch.com/csbsju/cs/160/notes/29/2.html
  */
 public class MTool implements MathSort {
 
 
-	@Override
-	public void MyMath(int[] iArray) {
-//
-	
-		int l=0;
-		int r = iArray.length -1;
-		int m = iArray.length /2;
-//		int h = iArray.length/2;
-//		
-//		//two seperate arrays to store half of main array
-//		int first[h];
-//		int second[h+1];
-//		
-//		//loops copy and split main array
-//		for(i=0; i <= h; i++) {
-//			first[i]= iArray[i]; 
-//		}
-//		for(l = (h+1); l<=iArray.length; l++) {
-//			second[l] = iArray[h+l];
-//		}
-//		
-//		i=0;
-//		l=0;
-		
-		    int i, j, k; 
-		    int n1 = m - l + 1; 
-		    int n2 =  r - m; 
+	 // MyMathSort: reorders the elements of iArray so that they are in
+    // increasing order.
+    public void MyMathSort(int[] iArray) {
+ 
+        if(iArray.length > 1) {
+            // split the array into two pieces, as close to the same
+            // size as possible.
+            int[] first = extract(iArray, 0, iArray.length / 2);
+            int[] last = extract(iArray, iArray.length / 2, iArray.length);
 
-		    /* create temp arrays */
-		    int firstArr[n1];
-		    int secondArr[n2]; 
+            // MyMathSort each of the two halves recursively
+            MyMathSort(first);
+            MyMathSort(last);
 
-		    // Copy data to temp arrays firstArr[] and secondArr[] /
-		    for (i = 0; i < n1; i++) 
-		        firstArr[i] = iArray[l + i]; 
-		    for (j = 0; j < n2; j++) 
-		        secondArr[j] = iArray[m + 1+ j]; 
+            // merge the two sorted halves together
+            merge(iArray, first, last);
+        }
+        }
 
-		    // Merge the temp arrays back into iArray[l..r]/
-		    i = 0; // Initial index of first subarray 
-		    j = 0; // Initial index of second subarray 
-		    k = l; // Initial index of merged subarray 
-		    while (i < n1 && j < n2) 
-		    { 
-		        if (firstArr[i] <= secondArr[j]) 
-		        { 
-		            iArray[k] = firstArr[i]; 
-		            i++; 
-		        } 
-		        else
-		        { 
-		            iArray[k] = secondArr[j]; 
-		            j++; 
-		        } 
-		        k++; 
-		    } 
+    // extract: returns a subarray of iArray, starting with index
+    // start in iArray, continuing to (but not including) index
+    // last.
+    private int[] extract(int[] iArray, int start, int last) {
+        int[] ret = new int[last - start];
+        for(int i = 0; i < ret.length; i++) ret[i] = iArray[start + i];
+        return ret;
+    }
 
-		    //Copy the remaining elements of firstArr[], if there 
-		      // are any /
-		    while (i < n1) 
-		    { 
-		        iArray[k] = firstArr[i]; 
-		        i++; 
-		        k++; 
-		    } 
-
-		    // Copy the remaining elements of secondArr[], if there 
-		      // are any */
-		    while (j < n2) 
-		    { 
-		        iArray[k] = secondArr[j]; 
-		        j++; 
-		        k++; 
-		    } 
-		    
-	}
+    // merge: merges arrays a and b, placing the result into the
+    // array dest. This only works if both a and b are already in
+    // increasing order.
+    private void merge(int[] dest, int[] a, int[] b) {
+        int i = 0;
+        int j = 0;
+        while(i < a.length && j < b.length) {
+            if(a[i] < b[j]) {
+                dest[i + j] = a[i];
+                ++i;
+            } else {
+                dest[i + j] = b[j];
+                ++j;
+            }
+        }
+        for(; i < a.length; i++) dest[i + j] = a[i];
+        for(; j < b.length; j++) dest[i + j] = b[j];
+       
+    }
 	
 }

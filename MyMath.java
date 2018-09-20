@@ -8,6 +8,7 @@ package program;
  */
 public class MyMath implements MathSort {
 
+	@Override
 	public void MyMath(int iArray[]) {
 		
 		int n = iArray.length;
@@ -21,5 +22,8 @@ public class MyMath implements MathSort {
                     iArray[j+1] = temp;
                 }
 	}
-            
+        
+   }
+	}
+}
            

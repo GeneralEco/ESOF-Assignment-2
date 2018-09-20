@@ -8,4 +8,7 @@ package program;
  */
 public interface MathSort {
 
+	public default void MyMath(int iArray[]) {
+		
+	}
 }
